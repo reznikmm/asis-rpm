@@ -1,0 +1,27 @@
+os:
+  - linux
+
+services:
+  - docker
+
+language: generic
+
+before_install:
+  - tools/travis/travis.sh before_install
+
+script:
+  - tools/travis/travis.sh script
+
+notifications:
+  irc: "irc.rusnet.org.ru#ada-commits"
+
+deploy:
+  skip_cleanup: true
+  on:
+    condition: "$TRAVIS_OS_NAME = linux"
+  provider: bintray
+  file: tools/travis/bintray.json
+  user: reznikmm
+  key:
+    secure: GRSg6DfDUbm4q7sqwCpmqh5gOyZqXsi9nh9shRQiZwahoeNI5RPNed8J77WQTsNotcUesw5cRsNq67aD0T8K/rWhW560LtJyszYK1jwl+JzLU2M6HeVf6IKBvPHPzqD6Hotsj/jvDda9Sl6fAB8UQtR+5RJBatNiAR//wZiSrIFu+thVRxq1mUsqIRECaTCZuFAqSIOT0L/CJ8bchbtoeEfjzy6+VGYeDaxWM+IdKYQZSpXIQHGIQu1uNLwO/14KCcaBj+kWaxqVuW4PsFArRLzEkPUUgDffVeDJqeu0hBW/HrPW655bWUp/1jtyoWM2rd6PxZPJO+iKeDo22nlALIbJ4deHOqAvtA9X1q+mk9XjBbUSifwnbgYYuzhcDH3fem4nxQSSsHx9qMMNWGNjVrGmN3yyBXWqezceCp9fuhzGz8yqpxvrqcGii3u2rjiSS67RD0xJxhzu62X6Qw1dxEOXPQ1lWlP2h2KUkTYIMggnvc5PJMgubEYZ7UX2RjXUltdfLnvu9N8ZYnoO0RC9OjtqR5m+Z6iIahBViV+iE8DmnHaBABoJ61JcwIrmZDsq4ogr6601+DUDxvpTjJu4/oRfzGmoKXKqB7JiibU9VPQCGxcyf1qOlZEU4aXJ6tE/e45D4Y/CtVk3mwpl4gK0SxfQD4qSve5O8PPNDrDR7AA=
+
