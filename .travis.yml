@@ -19,6 +19,7 @@ deploy:
   skip_cleanup: true
   on:
     condition: "$TRAVIS_OS_NAME = linux"
+    all_branches: true
   provider: bintray
   file: tools/travis/bintray.json
   user: reznikmm
