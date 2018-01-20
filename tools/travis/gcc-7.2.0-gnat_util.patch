@@ -1,6 +1,6 @@
 diff -Naur gcc-7.2.0_/gcc/ada/gnat_util.gpr gcc-7.2.0/gcc/ada/gnat_util.gpr
 --- gcc-7.2.0_/gcc/ada/gnat_util.gpr	1970-01-01 03:00:00.000000000 +0300
-+++ gcc-7.2.0/gcc/ada/gnat_util.gpr	2018-01-20 11:17:58.140302681 +0200
++++ gcc-7.2.0/gcc/ada/gnat_util.gpr	2018-01-20 13:42:33.656599492 +0200
 @@ -0,0 +1,76 @@
 +library project gnat_util is
 +   for Languages use ("Ada");
@@ -80,7 +80,7 @@ diff -Naur gcc-7.2.0_/gcc/ada/gnat_util.gpr gcc-7.2.0/gcc/ada/gnat_util.gpr
 +end gnat_util;
 diff -Naur gcc-7.2.0_/gcc/ada/gnatvsn.adb gcc-7.2.0/gcc/ada/gnatvsn.adb
 --- gcc-7.2.0_/gcc/ada/gnatvsn.adb	2010-12-03 06:48:56.819653000 +0200
-+++ gcc-7.2.0/gcc/ada/gnatvsn.adb	2018-01-20 11:17:58.140302681 +0200
++++ gcc-7.2.0/gcc/ada/gnatvsn.adb	2018-01-20 13:42:33.657599492 +0200
 @@ -53,32 +53,13 @@
          " FOR A PARTICULAR PURPOSE.";
     end Gnat_Free_Software;
@@ -117,8 +117,8 @@ diff -Naur gcc-7.2.0_/gcc/ada/gnatvsn.adb gcc-7.2.0/gcc/ada/gnatvsn.adb
  end Gnatvsn;
 diff -Naur gcc-7.2.0_/gcc/ada/Makefile gcc-7.2.0/gcc/ada/Makefile
 --- gcc-7.2.0_/gcc/ada/Makefile	1970-01-01 03:00:00.000000000 +0300
-+++ gcc-7.2.0/gcc/ada/Makefile	2018-01-20 11:17:58.141302682 +0200
-@@ -0,0 +1,24 @@
++++ gcc-7.2.0/gcc/ada/Makefile	2018-01-20 13:42:43.632599833 +0200
+@@ -0,0 +1,25 @@
 +GPRBUILD_FLAGS = -p -j0 -R
 +PREFIX                 ?= /usr
 +GPRDIR                 ?= $(PREFIX)/share/gpr
@@ -139,7 +139,8 @@ diff -Naur gcc-7.2.0_/gcc/ada/Makefile gcc-7.2.0/gcc/ada/Makefile
 +	./gen/xsnamest
 +	mv snames.ns snames.ads
 +	mv snames.nb snames.adb
-+	gprbuild -P gnat_util.gpr $(GPRBUILD_FLAGS)
++	gprinstall --sources-only --prefix=copy -p -P gnat_util.gpr
++	gprbuild -P copy/share/gpr/gnat_util.gpr $(GPRBUILD_FLAGS)
 +
 +install:
-+	gprinstall $(GPRINSTALL_FLAGS) -p -P gnat_util.gpr
++	gprinstall $(GPRINSTALL_FLAGS) -p -P copy/share/gpr/gnat_util.gpr
