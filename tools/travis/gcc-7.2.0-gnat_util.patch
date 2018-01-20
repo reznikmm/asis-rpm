@@ -1,0 +1,145 @@
+diff -Naur gcc-7.2.0_/gcc/ada/gnat_util.gpr gcc-7.2.0/gcc/ada/gnat_util.gpr
+--- gcc-7.2.0_/gcc/ada/gnat_util.gpr	1970-01-01 03:00:00.000000000 +0300
++++ gcc-7.2.0/gcc/ada/gnat_util.gpr	2018-01-20 11:17:58.140302681 +0200
+@@ -0,0 +1,76 @@
++library project gnat_util is
++   for Languages use ("Ada");
++   for Object_Dir use "obj";
++   for Library_Dir use "lib";
++   for Library_Name use "gnat_util";
++   for Library_Kind use "relocatable";
++   for Source_Files use (
++   "alloc.ads",
++   "aspects.adb",
++   "aspects.ads",
++   "atree.adb",
++   "atree.ads",
++   "casing.adb",
++   "casing.ads",
++   "csets.adb",
++   "csets.ads",
++   "debug.adb",
++   "debug.ads",
++   "einfo.adb",
++   "einfo.ads",
++   "elists.adb",
++   "elists.ads",
++   "fname.adb",
++   "fname.ads",
++   "gnatvsn.adb",
++   "gnatvsn.ads",
++   "hostparm.ads",
++   "krunch.adb",
++   "krunch.ads",
++   "lib-list.adb",
++   "lib-sort.adb",
++   "lib.adb",
++   "lib.ads",
++   "namet.adb",
++   "namet.ads",
++   "snames.adb",
++   "snames.ads",
++   "nlists.adb",
++   "nlists.ads",
++   "opt.adb",
++   "opt.ads",
++   "output.adb",
++   "output.ads",
++   "repinfo.adb",
++   "repinfo.ads",
++   "rident.ads",
++   "scans.adb",
++   "scans.ads",
++   "sem_aux.adb",
++   "sem_aux.ads",
++   "sinfo.adb",
++   "sinfo.ads",
++   "sinput.adb",
++   "sinput.ads",
++   "stand.adb",
++   "stand.ads",
++   "stringt.adb",
++   "stringt.ads",
++   "table.adb",
++   "table.ads",
++   "tree_in.adb",
++   "tree_in.ads",
++   "tree_io.adb",
++   "tree_io.ads",
++   "types.adb",
++   "types.ads",
++   "uintp.adb",
++   "uintp.ads",
++   "uname.adb",
++   "uname.ads",
++   "urealp.adb",
++   "urealp.ads",
++   "widechar.adb",
++   "widechar.ads");
++   
++end gnat_util;
+diff -Naur gcc-7.2.0_/gcc/ada/gnatvsn.adb gcc-7.2.0/gcc/ada/gnatvsn.adb
+--- gcc-7.2.0_/gcc/ada/gnatvsn.adb	2010-12-03 06:48:56.819653000 +0200
++++ gcc-7.2.0/gcc/ada/gnatvsn.adb	2018-01-20 11:17:58.140302681 +0200
+@@ -53,32 +53,13 @@
+         " FOR A PARTICULAR PURPOSE.";
+    end Gnat_Free_Software;
+ 
+-   type char_array is array (Natural range <>) of aliased Character;
+-   Version_String : char_array (0 .. Ver_Len_Max - 1);
+-   --  Import the C string defined in the (language-independent) source file
+-   --  version.c using the zero-based convention of the C language.
+-   --  The size is not the real one, which does not matter since we will
+-   --  check for the nul character in Gnat_Version_String.
+-   pragma Import (C, Version_String, "version_string");
+-
+    -------------------------
+    -- Gnat_Version_String --
+    -------------------------
+ 
+    function Gnat_Version_String return String is
+-      S : String (1 .. Ver_Len_Max);
+-      Pos : Natural := 0;
+    begin
+-      loop
+-         exit when Version_String (Pos) = ASCII.NUL;
+-
+-         S (Pos + 1) := Version_String (Pos);
+-         Pos := Pos + 1;
+-
+-         exit when Pos = Ver_Len_Max;
+-      end loop;
+-
+-      return S (1 .. Pos);
++      return "7.2.0";
+    end Gnat_Version_String;
+ 
+ end Gnatvsn;
+diff -Naur gcc-7.2.0_/gcc/ada/Makefile gcc-7.2.0/gcc/ada/Makefile
+--- gcc-7.2.0_/gcc/ada/Makefile	1970-01-01 03:00:00.000000000 +0300
++++ gcc-7.2.0/gcc/ada/Makefile	2018-01-20 11:17:58.141302682 +0200
+@@ -0,0 +1,24 @@
++GPRBUILD_FLAGS = -p -j0 -R
++PREFIX                 ?= /usr
++GPRDIR                 ?= $(PREFIX)/share/gpr
++LIBDIR                 ?= $(PREFIX)/lib
++INSTALL_PROJECT_DIR    ?= $(DESTDIR)$(GPRDIR)
++INSTALL_INCLUDE_DIR    ?= $(DESTDIR)$(PREFIX)/include/gnat_util
++INSTALL_LIBRARY_DIR    ?= $(DESTDIR)$(LIBDIR)
++INSTALL_ALI_DIR        ?= ${INSTALL_LIBRARY_DIR}/gnat_util
++
++GPRINSTALL_FLAGS = --prefix=$(PREFIX) --sources-subdir=$(INSTALL_INCLUDE_DIR)\
++ --lib-subdir=$(INSTALL_ALI_DIR) --project-subdir=$(INSTALL_PROJECT_DIR)\
++--link-lib-subdir=$(INSTALL_LIBRARY_DIR)
++
++all:
++	mkdir gen
++	cp {xsnamest,xutil}.* gen
++	cd gen; gnatmake xsnamest.adb
++	./gen/xsnamest
++	mv snames.ns snames.ads
++	mv snames.nb snames.adb
++	gprbuild -P gnat_util.gpr $(GPRBUILD_FLAGS)
++
++install:
++	gprinstall $(GPRINSTALL_FLAGS) -p -P gnat_util.gpr

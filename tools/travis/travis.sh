@@ -10,6 +10,7 @@ function linux_script()
     docker run -i -t -v$(pwd)/upload:/upload --user=max gnatutil \
            /bin/bash -c \
  'spectool -R -g /src/gnatutil.spec && \
+  cp /src/*.patch ~/rpmbuild/SOURCES/ && \
   rpmbuild -bb /src/gnatutil.spec --define "_rpmdir /upload"'
 }
 

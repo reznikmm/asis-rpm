@@ -2,14 +2,14 @@
 %define _gprdir %_GNAT_project_dir
 
 Name:       libgnatutil
-Version:    2016
-Release:    gpl%{?dist}
+Version:    7.2.0
+Release:    %{?dist}
 Summary:    GNU Ada compiler selected components
 Group:      Development/Libraries
 License:    GPL
 URL:        https://www.adacore.com/download/more
-### gnat_util-gpl-2016-src.tar.gz:
-Source0:    http://mirrors.cdn.adacore.com/art/57399637c7a447658e0affa6
+Source0:    http://robotlab.itk.ppke.hu/gcc/releases/gcc-7.2.0/gcc-7.2.0.tar.xz
+Patch0:     gcc-7.2.0-gnat_util.patch
 BuildRequires:   gcc-gnat
 BuildRequires:   fedora-gnat-project-common  >= 3 
 BuildRequires:   gprbuild
@@ -32,34 +32,28 @@ Requires:   fedora-gnat-project-common  >= 2
 Devel package for libgnatutil
 
 %prep 
-%setup -q -n gnat_util-gpl-2016-src
+%setup -q -n gcc-7.2.0
+%patch0 -p1
 
 %build
-make generate_sources
-gprbuild -R -P gnat_util -XLIBRARY_TYPE=relocatable -p -cargs -g
+make -C gcc/ada GPRBUILD_FLAGS="%Gnatmake_optflags"
 
 %install
 rm -rf %{buildroot}
-gprinstall -P gnat_util -XLIBRARY_TYPE=relocatable -p \
- --prefix=%{_prefix} \
- --sources-subdir=%{buildroot}%{_prefix}/include/%{name} \
- --lib-subdir=%{buildroot}%{_libdir}/%{name} \
- --project-subdir=%{buildroot}%{_gprdir} \
- --link-lib-subdir=%{buildroot}%{_libdir}
+make -C gcc/ada install DESTDIR=%{buildroot} LIBDIR=%{_libdir} PREFIX=%{_prefix} GPRDIR=%{_gprdir} BINDIR=%{_bindir}
 
 %post     -p /sbin/ldconfig
 %postun   -p /sbin/ldconfig
 
 %files
 %doc COPYING3
-%dir %{_libdir}/%{name}
-%{_libdir}/%{name}/libgnat_util.so
+%dir %{_libdir}/gnat_util
+%{_libdir}/gnat_util/libgnat_util.so
 %{_libdir}/libgnat_util.so
 
 %files devel
-%doc README.gnat_util
-%{_libdir}/%{name}/*.ali
-%{_includedir}/%{name}
+%{_libdir}/gnat_util/*.ali
+%{_includedir}/gnat_util
 %{_gprdir}/gnat_util.gpr
 %{_gprdir}/manifests/gnat_util
 
