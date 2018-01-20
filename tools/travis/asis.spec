@@ -1,46 +1,55 @@
 %undefine _hardened_build
 %define _gprdir %_GNAT_project_dir
 
-Name:       libgnatutil
-Version:    2016
+Name:       asis
+Version:    2017
 Release:    gpl%{?dist}
-Summary:    GNU Ada compiler selected components
+Summary:    Ada Semantic Interface Specification (ASIS) runtime library
 Group:      Development/Libraries
 License:    GPL
 URL:        https://www.adacore.com/download/more
-### gnat_util-gpl-2016-src.tar.gz:
-Source0:    http://mirrors.cdn.adacore.com/art/57399637c7a447658e0affa6
+### asis-gpl-2017-src.tar.gz:
+Source0:    http://mirrors.cdn.adacore.com/art/591c45e2c7a447af2deecffb
+Patch0:     no_version_check.diff
+Patch1:     with_gnat_util.diff
+Patch2:     gcc-7.diff
 BuildRequires:   gcc-gnat
 BuildRequires:   fedora-gnat-project-common  >= 3 
 BuildRequires:   gprbuild
+BuildRequires:   libgnatutil-devel
 
 # gprbuild only available on these:
 ExclusiveArch: %GPRbuild_arches
 
 %description
-GNU Ada compiler selected components required by ASIS.
+ASIS (Ada Semantic Interface Specification) lets you develop applications to
+walk through the sources of your Ada programs and examine the semantic
+constructs.
 
+This package contains the libraries necessary to execute ASIS programs. 
 %package devel
 
 Group:      Development/Libraries
 License:    GPL
-Summary:    Devel package for libgnatutil
+Summary:    Devel package for asis
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:   fedora-gnat-project-common  >= 2
 
 %description devel
-Devel package for libgnatutil
+Devel package for asis
 
 %prep 
-%setup -q -n gnat_util-gpl-2016-src
+%setup -q -n asis-gpl-2017-src
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 %build
-make generate_sources
-gprbuild -R -P gnat_util -XLIBRARY_TYPE=relocatable -p -cargs -g
+gprbuild -P asis.gpr %Gnatmake_optflags
 
 %install
 rm -rf %{buildroot}
-gprinstall -P gnat_util -XLIBRARY_TYPE=relocatable -p \
+gprinstall -P asis.gpr -p \
  --prefix=%{_prefix} \
  --sources-subdir=%{buildroot}%{_prefix}/include/%{name} \
  --lib-subdir=%{buildroot}%{_libdir}/%{name} \
@@ -53,15 +62,15 @@ gprinstall -P gnat_util -XLIBRARY_TYPE=relocatable -p \
 %files
 %doc COPYING3
 %dir %{_libdir}/%{name}
-%{_libdir}/%{name}/libgnat_util.so
-%{_libdir}/libgnat_util.so
+%{_libdir}/%{name}/lib%{name}.so
+%{_libdir}/lib%{name}.so
 
 %files devel
-%doc README.gnat_util
+%doc README
 %{_libdir}/%{name}/*.ali
 %{_includedir}/%{name}
-%{_gprdir}/gnat_util.gpr
-%{_gprdir}/manifests/gnat_util
+%{_gprdir}/%{name}.gpr
+%{_gprdir}/manifests/%{name}
 
 
 %changelog

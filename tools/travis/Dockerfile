@@ -1,10 +1,12 @@
 FROM fedora
-RUN dnf --assumeyes upgrade libsolv && \
+RUN curl -o /etc/yum.repos.d/bintray-reznikmm-matreshka.repo \
+ https://bintray.com/reznikmm/matreshka/rpm && \
+ dnf --assumeyes upgrade libsolv && \
  dnf --assumeyes install rpmdevtools && \
  dnf --assumeyes install gcc-gnat && \
  dnf --assumeyes install gprbuild && \
  dnf --assumeyes install gdb && \
- dnf --assumeyes install xmlada-devel && \
+ dnf --assumeyes install --repo bintray--reznikmm-matreshka libgnatutil-devel && \
 useradd max && \
 su -c rpmdev-setuptree max
 COPY * /src/

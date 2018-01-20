@@ -1,0 +1,38 @@
+diff -Naur asis-gpl-2017-src_/asis.gpr asis-gpl-2017-src/asis.gpr
+--- asis-gpl-2017-src_/asis.gpr	2017-05-16 13:22:19.000000000 +0300
++++ asis-gpl-2017-src/asis.gpr	2018-01-20 13:20:48.007554822 +0200
+@@ -21,16 +21,17 @@
+ --                                                                          --
+ ------------------------------------------------------------------------------
+ 
++with "gnat_util";
+ with "common";
+ 
+ project Asis is
+ 
+    for Languages use ("ada");
+-   for Source_Dirs use ("asis", "gnat");
++   for Source_Dirs use ("asis");
+    for Object_Dir use "obj";
+    for Library_Name use "asis";
+    for Library_Dir use "lib";
+-   for Library_Kind use "static";
++   for Library_Kind use "relocatable";
+ 
+    package Builder renames Common.Builder;
+    package Compiler renames Common.Compiler;
+@@ -52,14 +53,4 @@
+         for Excluded_Source_Files use ("a4g-gnsa_switch.ads");
+   end case;
+ 
+-   package Install is
+-      for Artifacts ("share/gps/plug-ins") use ("doc/asis.xml");
+-      for Artifacts ("share/doc/asis/html") use ("doc/html/**");
+-      for Artifacts ("share/doc/asis/pdf") use ("doc/pdf/*.pdf");
+-      for Artifacts ("share/doc/asis/info") use ("doc/info/*.info");
+-      for Artifacts ("share/doc/asis/txt") use ("doc/txt/*.txt");
+-
+-      for Install_Name use "asislib";
+-   end Install;
+-
+ end Asis;

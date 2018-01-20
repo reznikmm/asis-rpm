@@ -2,7 +2,7 @@
     "package": {
         "subject": "reznikmm",
         "repo": "matreshka",
-        "name": "libgpr",
+        "name": "asis",
         "desc": "support for programs processing GNAT projects",
         "labels": ["ada"],
         "licenses": ["GPL-3.0"],
