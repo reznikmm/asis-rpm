@@ -16,8 +16,8 @@
     },
 
     "version": {
-        "name": "2016-gpl",
-        "desc": "This is a GNAT GPL 2016 version",
+        "name": "8.1.0",
+        "desc": "This is a GNAT FSF 8.1.0 version",
         "gpgSign": false
     },
 

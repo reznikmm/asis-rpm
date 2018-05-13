@@ -2,16 +2,16 @@
 %define _gprdir %_GNAT_project_dir
 
 Name:       libgnatutil
-Version:    7.2.0
+Version:    8.1.0
 Release:    %{?dist}
 Summary:    GNU Ada compiler selected components
 Group:      Development/Libraries
 License:    GPL
 URL:        https://www.adacore.com/download/more
-Source0:    http://robotlab.itk.ppke.hu/gcc/releases/gcc-7.2.0/gcc-7.2.0.tar.xz
-Patch0:     gcc-7.2.0-gnat_util.patch
+Source0:    http://robotlab.itk.ppke.hu/gcc/releases/gcc-8.1.0/gcc-8.1.0.tar.xz
+Patch0:     gcc-8.1.0-gnat_util.patch
 BuildRequires:   gcc-gnat
-BuildRequires:   fedora-gnat-project-common  >= 3 
+BuildRequires:   fedora-gnat-project-common  >= 3
 BuildRequires:   gprbuild
 
 # gprbuild only available on these:
@@ -32,7 +32,7 @@ Requires:   fedora-gnat-project-common  >= 2
 Devel package for libgnatutil
 
 %prep 
-%setup -q -n gcc-7.2.0
+%setup -q -n gcc-8.1.0
 %patch0 -p1
 
 %build
@@ -59,5 +59,8 @@ make -C gcc/ada install DESTDIR=%{buildroot} LIBDIR=%{_libdir} PREFIX=%{_prefix}
 
 
 %changelog
+* Sun May 13 2018 Maxim Reznik <reznikmm@gmail.com> - 8.1.0
+- Update to gcc 8.1.0
+
 * Fri Jan 19 2018 Maxim Reznik <reznikmm@gmail.com> - 2016-gpl
 - Initial package
