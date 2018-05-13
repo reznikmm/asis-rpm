@@ -16,8 +16,8 @@
     },
 
     "version": {
-        "name": "2016-gpl",
-        "desc": "This is a GNAT GPL 2016 version",
+        "name": "2017-gpl",
+        "desc": "This is a GNAT GPL 2017 version",
         "gpgSign": false
     },
 
