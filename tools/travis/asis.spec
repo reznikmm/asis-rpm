@@ -12,7 +12,7 @@ URL:        https://www.adacore.com/download/more
 Source0:    http://mirrors.cdn.adacore.com/art/591c45e2c7a447af2deecffb
 Patch0:     no_version_check.diff
 Patch1:     with_gnat_util.diff
-Patch2:     gcc-7.diff
+Patch2:     gcc-8.diff
 BuildRequires:   gcc-gnat
 BuildRequires:   fedora-gnat-project-common  >= 3 
 BuildRequires:   gprbuild
@@ -74,5 +74,8 @@ gprinstall -P asis.gpr -p \
 
 
 %changelog
+* Tue May 15 2018 Maxim Reznik <reznikmm@gmail.com> - 2016-gpl
+- Apply patch for gcc-8 from https://github.com/simonjwright/ASIS
+
 * Fri Jan 19 2018 Maxim Reznik <reznikmm@gmail.com> - 2016-gpl
 - Initial package
