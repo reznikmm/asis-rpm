@@ -1,16 +1,17 @@
 %undefine _hardened_build
 %define _gprdir %_GNAT_project_dir
+%define gcc_version 8.2.0
 
 Name:       libgnatutil
-Version:    8.1.0
+Version:    8.2.1
 Release:    %{?dist}
 Summary:    GNU Ada compiler selected components
 Group:      Development/Libraries
 License:    GPL
 URL:        https://www.adacore.com/download/more
-Source0:    http://robotlab.itk.ppke.hu/gcc/releases/gcc-8.1.0/gcc-8.1.0.tar.xz
+Source0:    http://robotlab.itk.ppke.hu/gcc/releases/gcc-%{gcc_version}/gcc-%{gcc_version}.tar.xz
 Patch0:     gcc-8.1.0-gnat_util.patch
-BuildRequires:   gcc-gnat
+BuildRequires:   gcc-gnat = %{version}
 BuildRequires:   fedora-gnat-project-common  >= 3
 BuildRequires:   gprbuild
 
@@ -32,7 +33,7 @@ Requires:   fedora-gnat-project-common  >= 2
 Devel package for libgnatutil
 
 %prep 
-%setup -q -n gcc-8.1.0
+%setup -q -n gcc-%{gcc_version}
 %patch0 -p1
 
 %build
@@ -59,6 +60,9 @@ make -C gcc/ada install DESTDIR=%{buildroot} LIBDIR=%{_libdir} PREFIX=%{_prefix}
 
 
 %changelog
+* Sat Nov 17 2018 Maxim Reznik <reznikmm@gmail.com> - 8.2.1
+- Update to gcc 8.2.1 used in fedora 29
+
 * Sun May 13 2018 Maxim Reznik <reznikmm@gmail.com> - 8.1.0
 - Update to gcc 8.1.0
 
