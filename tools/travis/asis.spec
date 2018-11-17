@@ -2,17 +2,16 @@
 %define _gprdir %_GNAT_project_dir
 
 Name:       asis
-Version:    2017
+Version:    2018
 Release:    gpl%{?dist}
 Summary:    Ada Semantic Interface Specification (ASIS) runtime library
 Group:      Development/Libraries
 License:    GPL
 URL:        https://www.adacore.com/download/more
-### asis-gpl-2017-src.tar.gz:
-Source0:    http://mirrors.cdn.adacore.com/art/591c45e2c7a447af2deecffb
+### asis-gpl-2018-20180524-src.tar.gz:
+Source0:    http://mirrors.cdn.adacore.com/art/5b0819e0c7a447df26c27ab8
 Patch0:     no_version_check.diff
 Patch1:     with_gnat_util.diff
-Patch2:     gcc-8.diff
 BuildRequires:   gcc-gnat
 BuildRequires:   fedora-gnat-project-common  >= 3 
 BuildRequires:   gprbuild
@@ -38,11 +37,10 @@ Requires:   fedora-gnat-project-common  >= 2
 %description devel
 Devel package for asis
 
-%prep 
-%setup -q -n asis-gpl-2017-src
+%prep
+%setup -q -n asis-gpl-2018-src
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 gprbuild -P asis.gpr %Gnatmake_optflags
@@ -74,6 +72,9 @@ gprinstall -P asis.gpr -p \
 
 
 %changelog
+* Sat Nov 17 2018 Maxim Reznik <reznikmm@gmail.com> - 2018-gpl
+- Update to asis-gpl-2018
+
 * Tue May 15 2018 Maxim Reznik <reznikmm@gmail.com> - 2016-gpl
 - Apply patch for gcc-8 from https://github.com/simonjwright/ASIS
 
