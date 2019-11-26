@@ -16,7 +16,7 @@
     },
 
     "version": {
-        "name": "2018-gpl",
+        "name": "2018-fc31",
         "desc": "This is a GNAT GPL 2018 version",
         "gpgSign": false
     },
