@@ -16,8 +16,8 @@
     },
 
     "version": {
-        "name": "9.1.1",
-        "desc": "This is a GNAT FSF 9.1.1 version",
+        "name": "9.2.1",
+        "desc": "This is a GNAT FSF 9.2.1 version",
         "gpgSign": false
     },
 

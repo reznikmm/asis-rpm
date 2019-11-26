@@ -1,9 +1,9 @@
 %undefine _hardened_build
 %define _gprdir %_GNAT_project_dir
-%define gcc_version 9.1.0
+%define gcc_version 9.2.0
 
 Name:       libgnatutil
-Version:    9.1.1
+Version:    9.2.1
 Release:    %{?dist}
 Summary:    GNU Ada compiler selected components
 Group:      Development/Libraries
@@ -60,6 +60,9 @@ make -C gcc/ada install DESTDIR=%{buildroot} LIBDIR=%{_libdir} PREFIX=%{_prefix}
 
 
 %changelog
+* Thu Nov 26 2019 Maxim Reznik <reznikmm@gmail.com> - 9.2.1
+- Update to gcc 9.2.1 used in fedora 31
+
 * Thu Jun  6 2019 Maxim Reznik <reznikmm@gmail.com> - 9.1.1
 - Update to gcc 9.1.1 used in fedora 30
 
