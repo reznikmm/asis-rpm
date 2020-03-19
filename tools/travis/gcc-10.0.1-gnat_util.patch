@@ -1,6 +1,6 @@
-diff -Naur gcc-9.1.0_/gcc/ada/gnat_util.gpr gcc-9.1.0/gcc/ada/gnat_util.gpr
---- gcc-9.1.0_/gcc/ada/gnat_util.gpr	1970-01-01 03:00:00.000000000 +0300
-+++ gcc-9.1.0/gcc/ada/gnat_util.gpr	2019-06-06 18:27:11.297046049 +0300
+diff -Naur gcc-10.0.1-20200311_/gcc/ada/gnat_util.gpr gcc-10.0.1-20200311/gcc/ada/gnat_util.gpr
+--- gcc-10.0.1-20200311_/gcc/ada/gnat_util.gpr	1970-01-01 03:00:00.000000000 +0300
++++ gcc-10.0.1-20200311/gcc/ada/gnat_util.gpr	2020-03-19 19:46:33.006966028 +0200
 @@ -0,0 +1,78 @@
 +library project gnat_util is
 +   SRC := external("SRC", "copy");
@@ -80,9 +80,9 @@ diff -Naur gcc-9.1.0_/gcc/ada/gnat_util.gpr gcc-9.1.0/gcc/ada/gnat_util.gpr
 +   "widechar.ads");
 +   
 +end gnat_util;
-diff -Naur gcc-9.1.0_/gcc/ada/gnatvsn.adb gcc-9.1.0/gcc/ada/gnatvsn.adb
---- gcc-9.1.0_/gcc/ada/gnatvsn.adb	2019-01-08 11:54:04.000000000 +0200
-+++ gcc-9.1.0/gcc/ada/gnatvsn.adb	2019-06-06 18:31:51.848397577 +0300
+diff -Naur gcc-10.0.1-20200311_/gcc/ada/gnatvsn.adb gcc-10.0.1-20200311/gcc/ada/gnatvsn.adb
+--- gcc-10.0.1-20200311_/gcc/ada/gnatvsn.adb	2020-03-12 00:32:03.000000000 +0200
++++ gcc-10.0.1-20200311/gcc/ada/gnatvsn.adb	2020-03-19 19:47:18.535649728 +0200
 @@ -53,32 +53,13 @@
          " FOR A PARTICULAR PURPOSE.";
     end Gnat_Free_Software;
@@ -113,13 +113,13 @@ diff -Naur gcc-9.1.0_/gcc/ada/gnatvsn.adb gcc-9.1.0/gcc/ada/gnatvsn.adb
 -      end loop;
 -
 -      return S (1 .. Pos);
-+      return "9.1.0";
++      return "10.0.1";
     end Gnat_Version_String;
  
  end Gnatvsn;
-diff -Naur gcc-9.1.0_/gcc/ada/Makefile gcc-9.1.0/gcc/ada/Makefile
---- gcc-9.1.0_/gcc/ada/Makefile	1970-01-01 03:00:00.000000000 +0300
-+++ gcc-9.1.0/gcc/ada/Makefile	2019-06-06 18:27:11.297046049 +0300
+diff -Naur gcc-10.0.1-20200311_/gcc/ada/Makefile gcc-10.0.1-20200311/gcc/ada/Makefile
+--- gcc-10.0.1-20200311_/gcc/ada/Makefile	1970-01-01 03:00:00.000000000 +0300
++++ gcc-10.0.1-20200311/gcc/ada/Makefile	2020-03-19 19:46:33.006966028 +0200
 @@ -0,0 +1,26 @@
 +GPRBUILD_FLAGS = -p -j0 -R
 +PREFIX                 ?= /usr

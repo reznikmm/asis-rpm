@@ -1,4 +1,4 @@
-FROM fedora
+FROM fedora:32
 RUN dnf --assumeyes install rpmdevtools && \
  dnf --assumeyes install gcc-gnat && \
  dnf --assumeyes install gprbuild && \
