@@ -8,8 +8,8 @@ Summary:    Ada Semantic Interface Specification (ASIS) runtime library
 Group:      Development/Libraries
 License:    GPL
 URL:        https://www.adacore.com/download/more
-### asis-gpl-2018-20180524-src.tar.gz:
-Source0:    http://mirrors.cdn.adacore.com/art/5b0819e0c7a447df26c27ab8
+Source0:    asis-gpl-2018-20180524-src.tar.gz
+### https://community.download.adacore.com/v1/c338044768412af787c8cff13c0d952ed688df11?filename=asis-gpl-2018-20180524-src.tar.gz
 Patch0:     no_version_check.diff
 Patch1:     with_gnat_util.diff
 BuildRequires:   gcc-gnat
@@ -33,6 +33,7 @@ License:    GPL
 Summary:    Devel package for asis
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:   fedora-gnat-project-common  >= 2
+Requires:   libgnatutil-devel
 
 %description devel
 Devel package for asis
@@ -72,6 +73,9 @@ gprinstall -P asis.gpr -p \
 
 
 %changelog
+* Sat Jul 18 2020 Maxim Reznik <reznikmm@gmail.com> - 2018-gpl
+- Update URL
+
 * Sat Nov 17 2018 Maxim Reznik <reznikmm@gmail.com> - 2018-gpl
 - Update to asis-gpl-2018
 
