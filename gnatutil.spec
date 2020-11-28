@@ -1,4 +1,3 @@
-%define debug_package %{nil}
 %undefine _hardened_build
 %define _gprdir %_GNAT_project_dir
 %define gcc_version 10.2.1
@@ -10,8 +9,9 @@ Summary:    GNU Ada compiler selected components
 Group:      Development/Libraries
 License:    GPL
 URL:        https://www.adacore.com/download/more
-Source0:    https://src.fedoraproject.org/repo/pkgs/gcc/gcc-10.2.1-20201016.tar.xz/sha512/d324b7c872210a14aabdc117567ae6eff98d40ee8bf7a705a8caf1330d698e167016fb98f095ab56de43140e5f19932775ff3d5757434e3f78f2eec57d3dd1c4/gcc-10.2.1-20201016.tar.xz
-Patch0:     gcc-10.1.1-gnat_util.patch
+Source0:    gnatutil.tar.gz
+Source1:    https://src.fedoraproject.org/repo/pkgs/gcc/gcc-10.2.1-20201016.tar.xz/sha512/d324b7c872210a14aabdc117567ae6eff98d40ee8bf7a705a8caf1330d698e167016fb98f095ab56de43140e5f19932775ff3d5757434e3f78f2eec57d3dd1c4/gcc-10.2.1-20201016.tar.xz
+# Patch0:     gcc-10.1.1-gnat_util.patch
 BuildRequires:   gcc-gnat = %{version}
 BuildRequires:   fedora-gnat-project-common  >= 3
 BuildRequires:   gprbuild
@@ -33,9 +33,11 @@ Requires:   fedora-gnat-project-common  >= 2
 %description devel
 Devel package for libgnatutil
 
-%prep 
-%setup -q -n gcc-10.2.1-20201016
-%patch0 -p1
+%prep
+%setup -q -n gcc-10.2.1-20201016 -b0 -b1
+pwd
+patch -p1 < ../gnatutil/gcc-10.1.1-gnat_util.patch
+#%patch0 -p1
 
 %build
 make -C gcc/ada GPRBUILD_FLAGS="%Gnatmake_optflags"
